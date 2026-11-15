@@ -1,0 +1,225 @@
+.student-notification-wrap {
+  position: relative;
+  flex: 0 0 auto;
+}
+
+.student-layout__notification-badge {
+  position: absolute;
+  top: -5px;
+  right: -6px;
+  display: grid;
+  min-width: 19px;
+  height: 19px;
+  padding: 0 5px;
+  place-items: center;
+  border: 2px solid #fff;
+  border-radius: 999px;
+  background: #e5484d;
+  color: #fff;
+  font-size: 10px;
+  font-weight: 750;
+  line-height: 1;
+  font-variant-numeric: tabular-nums;
+}
+
+.student-notification-menu {
+  position: absolute;
+  z-index: 80;
+  top: calc(100% + 13px);
+  right: 0;
+  display: flex;
+  width: min(390px, calc(100vw - 32px));
+  max-height: min(560px, calc(100vh - 96px));
+  flex-direction: column;
+  overflow: hidden;
+  border: 1px solid #e5eaf2;
+  border-radius: 16px;
+  background: #fff;
+  box-shadow: 0 20px 55px rgba(15, 23, 42, .18), 0 3px 10px rgba(15, 23, 42, .06);
+  color: #172033;
+  animation: student-notification-enter .16s ease-out;
+}
+
+@keyframes student-notification-enter {
+  from { opacity: 0; transform: translateY(-5px) scale(.99); }
+  to { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+.student-notification-menu__header {
+  display: flex;
+  min-height: 70px;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 14px 16px;
+  border-bottom: 1px solid #edf0f5;
+  background: #fff;
+}
+
+.student-notification-menu__header > span:first-child {
+  display: grid;
+  min-width: 0;
+  gap: 3px;
+}
+
+.student-notification-menu__header b {
+  color: #172033;
+  font-size: 15px;
+  font-weight: 700;
+}
+
+.student-notification-menu__header small {
+  color: #7b8798;
+  font-size: 11px;
+}
+
+.student-notification-actions {
+  display: flex;
+  flex: 0 0 auto;
+  align-items: center;
+  gap: 8px;
+}
+
+.student-notification-actions > button {
+  min-height: 32px;
+  border: 0;
+  border-radius: 8px;
+  background: transparent;
+  color: #4c5fce;
+  font: inherit;
+  font-size: 11px;
+  font-weight: 650;
+  cursor: pointer;
+}
+
+.student-notification-actions > button:first-child {
+  display: grid;
+  width: 32px;
+  height: 32px;
+  min-height: 32px;
+  place-items: center;
+  border: 1px solid #e7ebf2;
+  background: #fff;
+  color: #64748b;
+}
+
+.student-notification-actions > button:hover:not(:disabled) {
+  background: #f3f5fa;
+  color: #405fd4;
+}
+
+.student-notification-actions > button:disabled {
+  opacity: .55;
+  cursor: wait;
+}
+
+.student-notification-list {
+  overflow-y: auto;
+  overscroll-behavior: contain;
+}
+
+.student-notification-item {
+  position: relative;
+  display: grid;
+  width: 100%;
+  grid-template-columns: 36px minmax(0, 1fr) 8px;
+  align-items: start;
+  gap: 11px;
+  padding: 13px 15px;
+  border: 0;
+  border-bottom: 1px solid #f0f2f6;
+  background: #fff;
+  color: inherit;
+  text-align: left;
+  cursor: pointer;
+  transition: background .15s ease;
+}
+
+.student-notification-item:last-child { border-bottom: 0; }
+.student-notification-item:hover { background: #f8f9fd; }
+.student-notification-item:focus-visible,
+.student-notification-actions > button:focus-visible {
+  outline: 3px solid rgba(64, 95, 212, .32);
+  outline-offset: -3px;
+}
+.student-notification-item.is-unread { background: #f7f8ff; }
+.student-notification-item.is-unread:hover { background: #f0f2ff; }
+
+.student-notification-icon {
+  display: grid;
+  width: 36px;
+  height: 36px;
+  place-items: center;
+  border-radius: 11px;
+  background: #eef1ff;
+  color: #4c5fce;
+}
+
+.student-notification-item.is-read .student-notification-icon {
+  background: #f1f4f7;
+  color: #748197;
+}
+
+.student-notification-copy {
+  display: grid;
+  min-width: 0;
+  gap: 4px;
+  padding-top: 1px;
+}
+
+.student-notification-copy b {
+  overflow: hidden;
+  color: #202b3c;
+  font-size: 12px;
+  font-weight: 700;
+  line-height: 1.35;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.student-notification-copy small {
+  display: -webkit-box;
+  overflow: hidden;
+  color: #68758a;
+  font-size: 11px;
+  line-height: 1.45;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+}
+
+.student-notification-copy time {
+  margin-top: 2px;
+  color: #98a2b2;
+  font-size: 10px;
+}
+
+.student-notification-item > i {
+  width: 7px;
+  height: 7px;
+  margin-top: 5px;
+  border-radius: 50%;
+  background: #5267d8;
+}
+
+.student-notification-empty {
+  margin: 0;
+  padding: 34px 18px;
+  color: #7a879b;
+  font-size: 12px;
+  text-align: center;
+}
+
+@media (max-width: 600px) {
+  .student-notification-menu {
+    position: fixed;
+    top: 62px;
+    right: 12px;
+    width: min(390px, calc(100vw - 24px));
+    max-height: calc(100dvh - 76px);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .student-notification-menu { animation: none; }
+  .student-notification-item { transition: none; }
+}

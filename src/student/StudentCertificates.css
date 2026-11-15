@@ -1,0 +1,577 @@
+@import url("https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Playfair+Display:ital,wght@0,600;0,700;1,600&display=swap");
+
+.student-certificates {
+  --primary: #2563eb;
+  --primary-hover: #1d4ed8;
+  --accent: #f59e0b;
+  --dark-slate: #0f172a;
+  --navy-800: #1e293b;
+  --text-main: #334155;
+  --text-muted: #64748b;
+
+  --bg-gradient: linear-gradient(180deg, #f8fafc 0%, #f1f5f9 100%);
+  --glass-bg: rgba(255, 255, 255, 0.85);
+  --border-light: #e2e8f0;
+
+  width: 100%;
+  min-height: 100vh;
+  background: var(--bg-gradient);
+  color: var(--text-main);
+  font-family: "Plus Jakarta Sans", -apple-system, BlinkMacSystemFont, sans-serif;
+  -webkit-font-smoothing: antialiased;
+}
+
+.student-certificates *,
+.student-certificates *::before,
+.student-certificates *::after {
+  box-sizing: border-box;
+}
+
+.certificates-main {
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 32px 32px 48px;
+}
+
+/* =========================================================
+   PAGE HEADER & HERO
+========================================================= */
+
+.certificates-page-header {
+  display: grid;
+  grid-template-columns: 1fr 1.5fr;
+  gap: 32px;
+  align-items: center;
+  margin-bottom: 32px;
+}
+
+.certificates-heading h1 {
+  margin: 0;
+  color: var(--dark-slate);
+  font-size: 36px;
+  font-weight: 800;
+  letter-spacing: -0.025em;
+}
+
+.certificates-heading p {
+  margin: 8px 0 0;
+  color: var(--text-muted);
+  font-size: 15px;
+  line-height: 1.5;
+}
+
+.certificates-hero {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 28px 36px;
+  border-radius: 20px;
+  background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+  box-shadow: 0 10px 30px -10px rgba(15, 23, 42, 0.3);
+  overflow: hidden;
+  color: #ffffff;
+}
+
+.certificates-hero::before {
+  content: "";
+  position: absolute;
+  top: -50%;
+  right: -10%;
+  width: 320px;
+  height: 320px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(37, 99, 235, 0.25) 0%, rgba(255, 255, 255, 0) 70%);
+  pointer-events: none;
+}
+
+.certificates-hero__content {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  z-index: 2;
+}
+
+.certificates-hero__icon {
+  display: grid;
+  place-items: center;
+  width: 56px;
+  height: 56px;
+  border-radius: 14px;
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  color: var(--accent);
+  backdrop-filter: blur(8px);
+}
+
+.certificates-hero__copy strong {
+  display: block;
+  font-size: 18px;
+  font-weight: 700;
+  letter-spacing: -0.01em;
+  color: #ffffff;
+}
+
+.certificates-hero__copy p {
+  margin: 4px 0 0;
+  font-size: 13px;
+  color: #94a3b8;
+}
+
+/* =========================================================
+   TOOLBAR & TABS
+========================================================= */
+
+.certificates-toolbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 24px;
+  border-bottom: 1px solid var(--border-light);
+}
+
+.certificate-tabs {
+  display: flex;
+  gap: 8px;
+}
+
+.certificate-tab {
+  position: relative;
+  padding: 12px 18px;
+  border: none;
+  background: transparent;
+  color: var(--text-muted);
+  font-family: inherit;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: color 0.2s ease;
+}
+
+.certificate-tab:hover {
+  color: var(--dark-slate);
+}
+
+.certificate-tab--active {
+  color: var(--primary);
+}
+
+.certificate-tab--active::after {
+  content: "";
+  position: absolute;
+  bottom: -1px;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: var(--primary);
+  border-radius: 2px 2px 0 0;
+}
+
+.certificate-sort-button {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 14px;
+  border: 1px solid var(--border-light);
+  border-radius: 10px;
+  background: #ffffff;
+  color: var(--dark-slate);
+  font-family: inherit;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.04);
+  transition: all 0.2s ease;
+}
+
+.certificate-sort-button:hover {
+  border-color: #cbd5e1;
+  background: #f8fafc;
+}
+
+/* =========================================================
+   WORKSPACE & LIST CARDS
+========================================================= */
+
+.certificates-workspace {
+  display: grid;
+  grid-template-columns: 380px 1fr;
+  gap: 28px;
+  align-items: start;
+}
+
+.certificate-list {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.certificate-list-card {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  width: 100%;
+  padding: 18px 20px;
+  border: 1px solid var(--border-light);
+  border-radius: 16px;
+  background: #ffffff;
+  text-align: left;
+  cursor: pointer;
+  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.certificate-list-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 12px 24px -10px rgba(15, 23, 42, 0.08);
+  border-color: #cbd5e1;
+}
+
+.certificate-list-card--active {
+  border-color: var(--primary);
+  background: #ffffff;
+  box-shadow: 0 12px 28px -8px rgba(37, 99, 235, 0.15);
+}
+
+.certificate-list-icon {
+  display: grid;
+  place-items: center;
+  flex-shrink: 0;
+  width: 52px;
+  height: 52px;
+  border-radius: 12px;
+}
+
+.certificate-list-icon--blue {
+  color: #2563eb;
+  background: #eff6ff;
+}
+
+.certificate-list-icon--red {
+  color: #e11d48;
+  background: #ffe4e6;
+}
+
+.certificate-list-icon--purple {
+  color: #7c3aed;
+  background: #f3e8ff;
+}
+
+.certificate-list-content {
+  flex: 1;
+  min-width: 0;
+}
+
+.certificate-list-content h3 {
+  margin: 0;
+  color: var(--dark-slate);
+  font-size: 15px;
+  font-weight: 700;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.certificate-list-content p {
+  margin: 2px 0 8px;
+  color: var(--text-muted);
+  font-size: 12px;
+}
+
+.certificate-meta-row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.certificate-issued {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  color: var(--text-muted);
+  font-size: 11px;
+}
+
+.certificate-valid {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 2px 8px;
+  border-radius: 20px;
+  background: #ecfdf5;
+  color: #059669;
+  font-size: 10px;
+  font-weight: 600;
+}
+
+/* =========================================================
+   PREVIEW CANVAS & TEMPLATE
+========================================================= */
+
+.certificate-preview-container {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.certificate-preview-wrapper {
+  padding: 16px;
+  border-radius: 20px;
+  background: #ffffff;
+  border: 1px solid var(--border-light);
+  box-shadow: 0 16px 32px -12px rgba(15, 23, 42, 0.06);
+}
+
+.certificate-preview-frame {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 1.414 / 1;
+  border-radius: 12px;
+  background: #ffffff;
+  overflow: hidden;
+  box-shadow: inset 0 0 0 1px rgba(0, 0, 0, 0.05);
+}
+
+/* SVG Certificate Styling */
+.cert-svg {
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+
+.cert-svg .brand-title {
+  font-family: "Plus Jakarta Sans", sans-serif;
+  font-weight: 800;
+  font-size: 18px;
+  fill: #0f172a;
+}
+
+.cert-svg .brand-subtitle {
+  font-family: "Plus Jakarta Sans", sans-serif;
+  font-size: 10px;
+  fill: #64748b;
+  letter-spacing: 2px;
+}
+
+.cert-svg .cert-header {
+  font-family: "Playfair Display", Georgia, serif;
+  font-weight: 700;
+  font-size: 34px;
+  fill: #0f172a;
+  letter-spacing: 4px;
+}
+
+.cert-svg .cert-subheader {
+  font-family: "Plus Jakarta Sans", sans-serif;
+  font-size: 11px;
+  fill: #d97706;
+  letter-spacing: 3px;
+  font-weight: 700;
+}
+
+.cert-svg .recipient-name {
+  font-family: "Playfair Display", Georgia, serif;
+  font-size: 38px;
+  font-weight: 700;
+  font-style: italic;
+  fill: #1e293b;
+}
+
+.cert-svg .course-title {
+  font-family: "Plus Jakarta Sans", sans-serif;
+  font-size: 20px;
+  font-weight: 800;
+  fill: #2563eb;
+}
+
+.cert-svg .body-text {
+  font-family: "Plus Jakarta Sans", sans-serif;
+  font-size: 12px;
+  fill: #475569;
+}
+
+.cert-svg .footer-label {
+  font-family: "Plus Jakarta Sans", sans-serif;
+  font-size: 10px;
+  fill: #94a3b8;
+  font-weight: 600;
+}
+
+.cert-svg .footer-value {
+  font-family: "Plus Jakarta Sans", sans-serif;
+  font-size: 12px;
+  fill: #0f172a;
+  font-weight: 700;
+}
+
+/* =========================================================
+   ACTIONS TOOLBAR
+========================================================= */
+
+.certificate-actions {
+  display: grid;
+  grid-template-columns: 1.5fr repeat(3, 1fr);
+  gap: 12px;
+}
+
+.certificate-action {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  height: 46px;
+  padding: 0 16px;
+  border: 1px solid var(--border-light);
+  border-radius: 12px;
+  background: #ffffff;
+  color: var(--dark-slate);
+  font-family: inherit;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.certificate-action:hover {
+  background: #f8fafc;
+  border-color: #cbd5e1;
+}
+
+.certificate-action--primary {
+  border: none;
+  background: var(--primary);
+  color: #ffffff;
+  box-shadow: 0 4px 12px rgba(37, 99, 235, 0.25);
+}
+
+.certificate-action--primary:hover {
+  background: var(--primary-hover);
+}
+
+/* =========================================================
+   BOTTOM CTA & FOOTER
+========================================================= */
+
+.certificates-bottom-cta {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 40px;
+  padding: 24px 32px;
+  border-radius: 16px;
+  background: linear-gradient(90deg, #eff6ff 0%, #f0fdf4 100%);
+  border: 1px solid #dbeafe;
+}
+
+.certificates-bottom-cta__content h2 {
+  margin: 0;
+  color: var(--dark-slate);
+  font-size: 18px;
+  font-weight: 700;
+}
+
+.certificates-bottom-cta__content p {
+  margin: 4px 0 0;
+  color: var(--text-muted);
+  font-size: 13px;
+}
+
+.certificates-bottom-cta__button {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 12px 20px;
+  border-radius: 10px;
+  background: var(--dark-slate);
+  color: #ffffff;
+  font-size: 13px;
+  font-weight: 600;
+  text-decoration: none;
+  transition: background 0.2s ease;
+}
+
+.certificates-bottom-cta__button:hover {
+  background: var(--navy-800);
+}
+
+.certificates-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 24px 32px;
+  border-top: 1px solid var(--border-light);
+  color: var(--text-muted);
+  font-size: 12px;
+}
+
+.certificates-footer-links {
+  display: flex;
+  gap: 16px;
+}
+
+.certificates-footer-links a {
+  color: var(--text-muted);
+  text-decoration: none;
+}
+
+.certificates-footer-links a:hover {
+  color: var(--primary);
+}
+
+.certificates-social {
+  display: flex;
+  gap: 12px;
+}
+
+.certificates-social-icon {
+  display: grid;
+  place-items: center;
+  width: 28px;
+  height: 28px;
+  border-radius: 6px;
+  background: #e2e8f0;
+  color: var(--dark-slate);
+  transition: all 0.2s ease;
+}
+
+.certificates-social-icon:hover {
+  background: var(--primary);
+  color: #ffffff;
+}
+
+/* =========================================================
+   RESPONSIVE LAYOUT
+========================================================= */
+
+@media (max-width: 1024px) {
+  .certificates-page-header {
+    grid-template-columns: 1fr;
+  }
+
+  .certificates-workspace {
+    grid-template-columns: 1fr;
+  }
+
+  .certificate-actions {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+@media print {
+  body * {
+    visibility: hidden;
+  }
+
+  .certificate-preview-frame,
+  .certificate-preview-frame * {
+    visibility: visible;
+  }
+
+  .certificate-preview-frame {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+  }
+}

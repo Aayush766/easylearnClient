@@ -1,0 +1,1609 @@
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap");
+
+:root {
+  --pel-blue: #0068b7;
+  --pel-blue-dark: #00539a;
+  --pel-orange: #ff7a00;
+  --pel-orange-2: #ff8a00;
+  --pel-text: #0c1420;
+  --pel-muted: #5d6878;
+  --pel-border: #e7edf4;
+  --pel-soft: #f5faff;
+  --pel-container: 1280px;
+}
+
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body { margin: 0; font-family: Inter, Arial, sans-serif; color: var(--pel-text); background: #fff; }
+a { color: inherit; text-decoration: none; }
+button { font: inherit; }
+img { display: block; max-width: 100%; }
+
+.pel-page { overflow: hidden; background: #fff; }
+.pel-container { width: min(var(--pel-container), calc(100% - 70px)); margin: 0 auto; }
+
+.pel-header {
+  height: 76px; background: rgba(255,255,255,.98); border-bottom: 1px solid #edf1f5;
+  position: relative; z-index: 20;
+}
+.pel-header__inner { height: 100%; display:flex; align-items:center; gap:22px; }
+.pel-brand { display:flex; align-items:center; gap:7px; min-width:220px; }
+.pel-brand__mark { width:40px; height:47px; position:relative; display:block; }
+.pel-brand__dot { position:absolute; width:13px; height:13px; border:4px solid var(--pel-orange); border-radius:50%; left:10px; top:3px; background:#fff; z-index:2; }
+.pel-brand__arc { position:absolute; width:30px; height:35px; border-left:5px solid var(--pel-blue); border-bottom:5px solid var(--pel-blue); border-radius:0 0 0 28px; transform:rotate(-10deg); left:3px; top:10px; }
+.pel-brand__copy { display:grid; line-height:1; }
+.pel-brand__copy strong { color:var(--pel-orange); font-size:13px; font-weight:700; }
+.pel-brand__copy b { color:var(--pel-blue); font-size:17px; font-weight:800; }
+.pel-brand__copy small { font-size:8px; font-weight:700; color:#17202b; margin-top:2px; letter-spacing:.1px; }
+
+.pel-nav { display:flex; align-items:center; gap:24px; flex:1; justify-content:center; }
+.pel-nav a { font-size:11px; font-weight:500; color:#1c2734; height:76px; display:flex; align-items:center; position:relative; white-space:nowrap; }
+.pel-nav a.active { color:var(--pel-blue-dark); font-weight:700; }
+.pel-nav a.active:after { content:""; position:absolute; left:0; right:0; bottom:9px; height:2px; background:var(--pel-orange); border-radius:2px; }
+
+.pel-header-actions { display:flex; align-items:center; gap:8px; }
+.pel-search { width:30px; height:30px; border:0; border-radius:50%; background:#f7fafc; color:#1a3147; display:grid; place-items:center; cursor:pointer; }
+.pel-login, .pel-enroll { font-size:8.5px; font-weight:600; padding:9px 12px; border-radius:6px; white-space:nowrap; }
+.pel-login--student { color:var(--pel-blue); border:1px solid var(--pel-blue); }
+.pel-login--trainer { color:#fff; background:var(--pel-orange); }
+.pel-enroll { color:#fff; background:var(--pel-blue); }
+.pel-mobile-menu { display:none; border:0; background:none; }
+
+/* =========================================================
+   HERO SECTION
+   ========================================================= */
+
+.pel-hero {
+  min-height: 310px;
+  position: relative;
+  overflow: hidden;
+
+  background:
+    radial-gradient(
+      circle at 68% 52%,
+      rgba(207, 233, 255, 0.85) 0,
+      rgba(207, 233, 255, 0.5) 125px,
+      transparent 126px
+    ),
+    linear-gradient(
+      105deg,
+      #ffffff 0%,
+      #f7fbff 48%,
+      #edf8ff 100%
+    );
+}
+
+
+/* =========================================================
+   BACKGROUND DECORATIONS
+   ========================================================= */
+
+.pel-hero-bg-shape {
+  position: absolute;
+  pointer-events: none;
+}
+
+.pel-hero-bg-shape--left {
+  width: 95px;
+  height: 95px;
+
+  left: -58px;
+  top: 80px;
+
+  border-radius: 50%;
+
+  background: rgba(198, 226, 250, 0.65);
+}
+
+.pel-hero-bg-shape--main {
+  width: 280px;
+  height: 280px;
+
+  right: 190px;
+  top: 20px;
+
+  border-radius: 50%;
+
+  background: rgba(213, 237, 255, 0.72);
+}
+
+.pel-hero-bg-shape--right {
+  width: 105px;
+  height: 105px;
+
+  right: -48px;
+  top: 30px;
+
+  border-radius: 50%;
+
+  background: rgba(194, 225, 251, 0.55);
+}
+
+
+/* =========================================================
+   HERO GRID
+   ========================================================= */
+
+.pel-hero__grid {
+  min-height: 310px;
+
+  display: grid;
+  grid-template-columns: 1fr 1.05fr;
+
+  align-items: center;
+
+  position: relative;
+  z-index: 5;
+}
+
+
+/* =========================================================
+   LEFT CONTENT
+   ========================================================= */
+
+.pel-hero__copy {
+  padding-left: 20px;
+  padding-bottom: 4px;
+
+  position: relative;
+  z-index: 10;
+}
+
+.pel-pill {
+  display: inline-flex;
+  align-items: center;
+
+  padding: 5px 10px;
+
+  border-radius: 10px;
+
+  background: #e4f3ff;
+
+  color: var(--pel-blue);
+
+  font-size: 7.5px;
+  font-weight: 700;
+
+  letter-spacing: 0.7px;
+}
+
+.pel-pill i {
+  margin: 0 4px;
+  font-style: normal;
+}
+
+
+.pel-hero h1 {
+  font-size: 38px;
+
+  line-height: 1.02;
+
+  letter-spacing: -1.7px;
+
+  margin: 12px 0 8px;
+
+  font-weight: 800;
+}
+
+.pel-hero h1 span {
+  color: var(--pel-blue);
+}
+
+.pel-hero h1 em {
+  color: var(--pel-orange);
+  font-style: normal;
+}
+
+
+.pel-hero__copy > p {
+  font-size: 11.5px;
+
+  line-height: 1.35;
+
+  max-width: 440px;
+
+  color: #273545;
+
+  margin: 0 0 12px;
+}
+
+
+/* =========================================================
+   BENEFITS
+   ========================================================= */
+
+.pel-benefits {
+  display: flex;
+  flex-wrap: wrap;
+
+  gap: 13px;
+
+  margin-bottom: 12px;
+}
+
+.pel-benefits span {
+  display: flex;
+  align-items: center;
+
+  gap: 4px;
+
+  font-size: 8px;
+
+  color: #293746;
+
+  white-space: nowrap;
+}
+
+.pel-benefits svg {
+  width: 13px;
+  height: 13px;
+
+  color: #fff;
+
+  fill: var(--pel-orange);
+
+  stroke: #fff;
+}
+
+
+/* =========================================================
+   HERO BUTTONS
+   ========================================================= */
+
+.pel-hero-actions {
+  display: flex;
+
+  gap: 10px;
+
+  align-items: center;
+}
+
+.pel-btn {
+  min-height: 34px;
+
+  padding: 0 15px;
+
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  gap: 8px;
+
+  border-radius: 6px;
+
+  font-size: 9px;
+
+  font-weight: 700;
+}
+
+.pel-btn--orange {
+  color: #fff;
+
+  background:
+    linear-gradient(
+      135deg,
+      var(--pel-orange),
+      #ff8c0a
+    );
+
+  box-shadow:
+    0 5px 13px rgba(255, 122, 0, 0.18);
+}
+
+.pel-btn--outline {
+  color: var(--pel-blue);
+
+  border: 1px solid var(--pel-blue);
+
+  background: #fff;
+}
+
+.pel-play {
+  width: 17px;
+  height: 17px;
+
+  border-radius: 50%;
+
+  display: grid;
+  place-items: center;
+
+  background: var(--pel-blue);
+
+  color: #fff;
+}
+
+
+/* =========================================================
+   HERO VISUAL AREA
+   ========================================================= */
+
+.pel-hero__visual {
+  height: 310px;
+
+  position: relative;
+
+  display: block;
+
+  overflow: visible;
+}
+
+
+/* =========================================================
+   ORANGE BACKGROUND CARD
+   ========================================================= */
+
+.pel-hero-orange-card {
+  position: absolute;
+
+  width: 180px;
+  height: 200px;
+
+  right: 105px;
+  top: 62px;
+
+  border-radius: 10px;
+
+  background:
+    linear-gradient(
+      145deg,
+      #ff8a00,
+      #ff7110
+    );
+
+  z-index: 1;
+}
+
+
+/* =========================================================
+   MAIN WHITE INFORMATION CARD
+   ========================================================= */
+
+.pel-hero-main-card {
+  position: absolute;
+
+  width: 255px;
+  height: 190px;
+
+  left: 48px;
+  top: 58px;
+
+  padding: 25px 25px;
+
+  border-radius: 14px;
+
+  background: rgba(255, 255, 255, 0.98);
+
+  box-shadow:
+    0 12px 28px rgba(30, 85, 130, 0.10);
+
+  z-index: 2;
+}
+
+.pel-hero-main-card h3 {
+  margin: 0 0 12px;
+
+  color: #111a24;
+
+  font-size: 14px;
+
+  line-height: 1.2;
+
+  font-weight: 800;
+}
+
+.pel-hero-main-card p {
+  margin: 0;
+
+  color: #4e5966;
+
+  font-size: 9px;
+
+  line-height: 1.45;
+}
+
+
+/* =========================================================
+   PERSON
+   ========================================================= */
+
+.pel-hero-person {
+  position: absolute;
+
+  width: 287px;
+  height: 320px;
+
+  right: 115px;
+  bottom: -17px;
+
+  object-fit: contain;
+
+  object-position: center bottom;
+
+  max-width: none;
+
+  z-index: 5;
+
+  filter:
+    drop-shadow(
+      0 8px 10px rgba(0, 0, 0, 0.08)
+    );
+}
+
+
+/* =========================================================
+   LARGE PLAY BUTTON
+   ========================================================= */
+
+.pel-hero-play {
+  position: absolute;
+
+  width: 58px;
+  height: 58px;
+
+  right: 225px;
+  top: 157px;
+
+  border: 7px solid rgba(255, 255, 255, 0.65);
+
+  border-radius: 50%;
+
+  display: grid;
+  place-items: center;
+
+  background: #fff;
+
+  color: #07538d;
+
+  box-shadow:
+    0 6px 18px rgba(0, 0, 0, 0.15);
+
+  z-index: 8;
+
+  cursor: pointer;
+}
+
+.pel-hero-play svg {
+  margin-left: 3px;
+}
+
+
+/* =========================================================
+   TRUSTED BY CARD
+   ========================================================= */
+
+.pel-trusted-card {
+  position: absolute;
+
+  width: 145px;
+  min-height: 91px;
+
+  right: 18px;
+  top: 39px;
+
+  padding: 13px 13px 10px;
+
+  border-radius: 12px;
+
+  background: rgba(255, 255, 255, 0.97);
+
+  box-shadow:
+    0 8px 20px rgba(30, 85, 130, 0.12);
+
+  z-index: 7;
+}
+
+.pel-trusted-card strong {
+  display: block;
+
+  color: #182637;
+
+  font-size: 8px;
+
+  line-height: 1.15;
+}
+
+.pel-trusted-card strong b {
+  color: var(--pel-blue-dark);
+
+  font-size: 17px;
+
+  line-height: 1.05;
+}
+
+
+.pel-trusted-star {
+  position: absolute;
+
+  right: -9px;
+  top: -14px;
+
+  color: var(--pel-orange);
+
+  font-size: 25px;
+
+  line-height: 1;
+}
+
+
+/* =========================================================
+   TRUSTED AVATARS
+   ========================================================= */
+
+.pel-trusted-avatars {
+  display: flex;
+
+  margin-top: 7px;
+
+  padding-left: 2px;
+}
+
+.pel-trusted-avatars img {
+  width: 25px;
+  height: 25px;
+
+  border-radius: 50%;
+
+  object-fit: cover;
+
+  border: 2px solid #fff;
+
+  margin-left: -4px;
+}
+
+.pel-trusted-avatars img:first-child {
+  margin-left: 0;
+}
+
+
+/* =========================================================
+   PRACTICAL TRAINING CARD
+   ========================================================= */
+
+.pel-hero-feature-card {
+  position: absolute;
+
+  width: 150px;
+
+  right: 16px;
+  bottom: 37px;
+
+  padding: 8px 10px;
+
+  border-radius: 10px;
+
+  background: rgba(255, 255, 255, 0.98);
+
+  box-shadow:
+    0 8px 20px rgba(30, 85, 130, 0.12);
+
+  z-index: 8;
+}
+
+.pel-hero-feature {
+  min-height: 35px;
+
+  display: flex;
+  align-items: center;
+
+  gap: 8px;
+
+  border-bottom: 1px solid #edf1f5;
+}
+
+.pel-hero-feature:last-child {
+  border-bottom: 0;
+}
+
+.pel-hero-feature span {
+  width: 24px;
+  height: 24px;
+
+  flex: none;
+
+  display: grid;
+  place-items: center;
+
+  border-radius: 6px;
+
+  background: #edf7ff;
+
+  color: var(--pel-blue);
+}
+
+.pel-hero-feature b {
+  color: #263544;
+
+  font-size: 8px;
+
+  font-weight: 700;
+}
+
+
+/* =========================================================
+   HANDWRITTEN DECORATION
+   ========================================================= */
+
+.pel-hero-decoration {
+  position: absolute;
+
+  font-family: "Comic Sans MS", "Segoe Print", cursive;
+
+  color: #74b6ef;
+
+  font-size: 16px;
+
+  line-height: 1.35;
+
+  z-index: 3;
+
+  pointer-events: none;
+}
+
+.pel-hero-decoration--top {
+  right: 46%;
+
+  top: 47px;
+
+  transform: rotate(-8deg);
+}
+
+.pel-hero-decoration--top span {
+  display: inline-block;
+
+  font-size: 28px;
+
+  margin-left: 18px;
+
+  transform: rotate(20deg);
+}
+
+
+.pel-hero-decoration--bottom {
+  right: 500px;
+
+  bottom: 95px;
+
+  color: #1b2430;
+
+  font-size: 12px;
+
+  font-weight: 600;
+
+  transform: rotate(-7deg);
+
+  z-index: 6;
+}
+
+.pel-hero-decoration--bottom i {
+  display: block;
+
+  width: 80px;
+  height: 3px;
+
+  margin-top: 5px;
+
+  background: var(--pel-orange);
+
+  border-radius: 50%;
+
+  transform: rotate(-5deg);
+}
+
+
+.pel-hero-star {
+  position: absolute;
+
+  right: 25px;
+
+  top: 26px;
+
+  color: var(--pel-orange);
+
+  font-size: 25px;
+
+  z-index: 4;
+}
+
+
+/* =========================================================
+   DESKTOP / LARGE DESKTOP
+   ========================================================= */
+
+@media (min-width: 1100px) {
+
+  .pel-hero {
+    min-height: 310px;
+  }
+
+  .pel-hero__grid {
+    min-height: 310px;
+  }
+
+  .pel-hero h1 {
+    font-size: 50px;
+    letter-spacing: -2.2px;
+  }
+
+  .pel-hero__copy > p {
+    font-size: 14px;
+    max-width: 535px;
+  }
+
+  .pel-benefits span {
+    font-size: 10px;
+  }
+
+  .pel-btn {
+    min-height: 42px;
+    padding: 0 20px;
+    font-size: 11px;
+  }
+
+  .pel-hero__visual {
+    height: 310px;
+  }
+
+  .pel-hero-person {
+    width: 287px;
+  height: 320px;
+    right: 110px;
+  }
+
+  .pel-hero-main-card {
+    width: 275px;
+    height: 195px;
+
+    left: 152px;
+    top: 53px;
+  }
+
+  .pel-hero-orange-card {
+    right: 94px;
+    top: 60px;
+
+    width: 190px;
+    height: 200px;
+  }
+
+  .pel-hero-play {
+    right: 220px;
+    top: 154px;
+  }
+
+  .pel-trusted-card {
+    right: 3px;
+    top: 37px;
+  }
+
+  .pel-hero-feature-card {
+    right: 1px;
+    bottom: 34px;
+  }
+}
+
+
+/* =========================================================
+   TABLET
+   ========================================================= */
+
+@media (max-width: 850px) {
+
+  .pel-hero {
+    min-height: 650px;
+  }
+
+  .pel-hero__grid {
+    min-height: 650px;
+
+    grid-template-columns: 1fr;
+
+    padding-top: 35px;
+  }
+
+  .pel-hero__copy {
+    padding-left: 0;
+
+    text-align: center;
+  }
+
+  .pel-hero__copy > p {
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .pel-benefits,
+  .pel-hero-actions {
+    justify-content: center;
+  }
+
+  .pel-hero__visual {
+    height: 320px;
+
+    width: 100%;
+
+    margin-top: 10px;
+  }
+
+  .pel-hero-person {
+    width: 300px;
+    height: 330px;
+
+    right: 50%;
+
+    transform: translateX(50%);
+  }
+
+  .pel-hero-main-card {
+    left: 5%;
+    top: 45px;
+
+    width: 220px;
+  }
+
+  .pel-trusted-card {
+    right: 4%;
+    top: 30px;
+  }
+
+  .pel-hero-feature-card {
+    right: 3%;
+    bottom: 20px;
+  }
+
+  .pel-hero-orange-card {
+    right: 23%;
+  }
+
+  .pel-hero-play {
+    right: 50%;
+    transform: translateX(50%);
+  }
+
+  .pel-hero-decoration--top {
+    display: none;
+  }
+
+  .pel-hero-decoration--bottom {
+    display: none;
+  }
+}
+
+
+/* =========================================================
+   MOBILE
+   ========================================================= */
+
+@media (max-width: 560px) {
+
+  .pel-hero {
+    min-height: 700px;
+  }
+
+  .pel-hero__grid {
+    min-height: 700px;
+  }
+
+  .pel-hero h1 {
+    font-size: 34px;
+  }
+
+  .pel-desktop-break {
+    display: none;
+  }
+
+  .pel-hero__visual {
+    height: 340px;
+  }
+
+  .pel-hero-person {
+    width: 275px;
+    height: 315px;
+
+    bottom: 0;
+  }
+
+  .pel-hero-main-card {
+    width: 185px;
+    height: 150px;
+
+    left: 0;
+    top: 55px;
+
+    padding: 18px;
+  }
+
+  .pel-hero-main-card h3 {
+    font-size: 11px;
+  }
+
+  .pel-hero-main-card p {
+    font-size: 7px;
+  }
+
+  .pel-trusted-card {
+    width: 125px;
+
+    right: 0;
+
+    top: 28px;
+  }
+
+  .pel-trusted-card strong b {
+    font-size: 14px;
+  }
+
+  .pel-hero-feature-card {
+    width: 125px;
+
+    right: 0;
+
+    bottom: 12px;
+  }
+
+  .pel-hero-feature b {
+    font-size: 7px;
+  }
+
+  .pel-hero-orange-card {
+    right: 15%;
+    width: 155px;
+  }
+
+  .pel-hero-play {
+    width: 52px;
+    height: 52px;
+
+    top: 160px;
+  }
+}
+.pel-stats-wrap { margin-top:-1px; position:relative; z-index:5; }
+.pel-stats { height:88px; background:#fff; border-radius:8px; box-shadow:0 5px 20px rgba(18,59,92,.09); display:grid; grid-template-columns:repeat(4,1fr); }
+.pel-stat { display:flex; align-items:center; gap:10px; padding:0 20px; border-right:1px solid #eef1f5; }
+.pel-stat:last-child { border:0; }
+.pel-stat__icon { width:39px; height:39px; border-radius:9px; display:grid; place-items:center; color:var(--pel-blue); background:#f0f8ff; flex:none; }
+.pel-stat:nth-child(1) .pel-stat__icon, .pel-stat:nth-child(3) .pel-stat__icon { color:var(--pel-orange); background:#fff8ef; }
+.pel-stat div { display:grid; }
+.pel-stat strong { color:var(--pel-blue-dark); font-size:21px; line-height:1.05; }
+.pel-stat b { font-size:11px; line-height:1.25; }
+.pel-stat small { font-size:8.5px; color:#657080; margin-top:2px; }
+
+.pel-section { padding:15px 0 0; }
+.pel-section-head { display:flex; align-items:center; justify-content:space-between; margin:0 7px 10px; }
+.pel-section-head h2 { margin:0; font-size:28px; line-height:1.1; letter-spacing:-.7px; }
+.pel-section-head h2 span { color:var(--pel-blue); }
+.pel-section-head a { color:var(--pel-blue); display:flex; align-items:center; gap:4px; font-size:8.5px; font-weight:600; }
+.pel-course-grid { display:grid; grid-template-columns:repeat(4,1fr); gap:15px; }
+.pel-course-card { border:1px solid #e6e9ed; border-radius:7px; background:#fff; overflow:hidden; box-shadow:0 2px 8px rgba(10,42,75,.04); }
+.pel-course-image { height:125px; position:relative; overflow:hidden; }
+.pel-course-image img { width:100%; height:100%; object-fit:cover; }
+.pel-course-image span { position:absolute; left:10px; top:9px; background:#ffe3bd; color:#17202b; font-size:7px; font-weight:700; border-radius:4px; padding:5px 7px; box-shadow:0 2px 4px rgba(0,0,0,.08); }
+.pel-course-body { padding:8px 10px 10px; }
+.pel-course-body h3 { margin:0 0 4px; color:#07538d; font-size:15px; line-height:1.2; }
+.pel-course-body p { margin:0 0 8px; font-size:9.5px; color:#566170; line-height:1.45; min-height:43px; }
+.pel-course-meta { display:grid; grid-template-columns:auto auto 1fr; align-items:center; gap:6px; margin-bottom:7px; font-size:8.5px; color:#36424f; }
+.pel-course-meta span { display:flex; gap:3px; align-items:center; white-space:nowrap; }
+.pel-course-meta .rating { color:#4e5966; }
+.pel-course-meta .rating svg { color:var(--pel-orange); }
+.pel-course-meta strong { text-align:right; color:var(--pel-blue-dark); font-size:14px; }
+.pel-course-btn { height:34px; border:1px solid var(--pel-orange); color:var(--pel-orange); border-radius:5px; display:flex; align-items:center; justify-content:center; gap:5px; font-size:9.5px; font-weight:600; }
+
+/* =========================================================
+   LEARN FROM EXPERIENCE
+   ========================================================= */
+
+.pel-trainer {
+  padding: 10px 0 3px;
+  background: #fff;
+}
+
+
+/* =========================================================
+   MAIN 3 COLUMN LAYOUT
+   ========================================================= */
+
+.pel-trainer__grid {
+  display: grid;
+
+  grid-template-columns:
+    330px
+    minmax(0, 1fr)
+    175px;
+
+  column-gap: 20px;
+
+  align-items: center;
+
+  min-height: 210px;
+}
+
+
+/* =========================================================
+   LEFT TRAINER IMAGE
+   ========================================================= */
+
+.pel-trainer__image {
+  position: relative;
+
+  height: 208px;
+
+  border-radius:
+    105px
+    105px
+    18px
+    18px;
+
+  overflow: hidden;
+
+  background:
+    linear-gradient(
+      135deg,
+      #eaf6ff,
+      #d9efff
+    );
+}
+
+
+/*
+   The reference has the trainer occupying almost
+   the complete left visual area.
+*/
+
+.pel-trainer__image img {
+  width: 100%;
+  height: 100%;
+
+  display: block;
+
+  object-fit: cover;
+
+  object-position: center 18%;
+}
+
+
+/* =========================================================
+   TRAINER IMAGE DECORATIVE TEXT
+   ========================================================= */
+
+.pel-trainer__image::before {
+  content:
+    "Same\A"
+    "Skills\A"
+    "Brighter\A"
+    "Futures";
+
+  white-space: pre;
+
+  position: absolute;
+
+  left: 25px;
+  top: 42px;
+
+  z-index: 4;
+
+  color: #17212d;
+
+  font-family:
+    "Comic Sans MS",
+    "Segoe Print",
+    cursive;
+
+  font-size: 11px;
+
+  line-height: 1.4;
+
+  transform: rotate(-7deg);
+
+  pointer-events: none;
+}
+
+
+.pel-trainer__image::after {
+  content: "";
+
+  position: absolute;
+
+  left: 23px;
+  top: 105px;
+
+  width: 57px;
+  height: 3px;
+
+  background: var(--pel-orange);
+
+  border-radius: 50%;
+
+  transform: rotate(-7deg);
+
+  z-index: 4;
+
+  pointer-events: none;
+}
+
+
+/* =========================================================
+   VIDEO / PLAY BUTTON OVER IMAGE
+   ========================================================= */
+
+.pel-trainer__image {
+  isolation: isolate;
+}
+
+.pel-trainer__image::marker {
+  display: none;
+}
+
+
+/*
+   Use a pseudo-element for the white play circle.
+*/
+
+.pel-trainer__image {
+  --trainer-play-size: 43px;
+}
+
+
+/* =========================================================
+   CENTER CONTENT
+   ========================================================= */
+
+.pel-trainer__copy {
+  padding:
+    3px
+    0
+    0
+    0;
+
+  align-self: center;
+}
+
+
+/* =========================================================
+   SMALL LABEL
+   ========================================================= */
+
+.pel-mini-label {
+  display: inline-flex;
+
+  align-items: center;
+
+  padding: 4px 9px;
+
+  border-radius: 7px;
+
+  background: #eaf6ff;
+
+  color: var(--pel-blue);
+
+  font-size: 7px;
+
+  line-height: 1;
+
+  font-weight: 700;
+
+  letter-spacing: 1px;
+}
+
+
+/* =========================================================
+   HEADING
+   ========================================================= */
+
+.pel-trainer__copy h2 {
+  margin:
+    7px
+    0
+    5px;
+
+  color: #07538d;
+
+  font-size: 28px;
+
+  line-height: 1.05;
+
+  letter-spacing: -0.9px;
+
+  font-weight: 800;
+}
+
+.pel-trainer__copy h2 span {
+  color: var(--pel-orange);
+}
+
+
+/* =========================================================
+   DESCRIPTION
+   ========================================================= */
+
+.pel-trainer__copy > p {
+  max-width: 430px;
+
+  margin:
+    0
+    0
+    11px;
+
+  color: #5b6673;
+
+  font-size: 10px;
+
+  line-height: 1.45;
+}
+
+
+/* =========================================================
+   TRAINER STATS
+   ========================================================= */
+
+.pel-trainer-stats {
+  display: flex;
+
+  align-items: center;
+
+  gap: 19px;
+
+  margin:
+    0
+    0
+    10px;
+}
+
+
+.pel-trainer-stats > span {
+  display: flex;
+
+  align-items: center;
+
+  gap: 5px;
+
+  color: var(--pel-blue);
+
+  min-width: 82px;
+}
+
+
+.pel-trainer-stats svg {
+  width: 26px;
+  height: 26px;
+
+  padding: 5px;
+
+  flex: none;
+
+  background: #edf7ff;
+
+  border-radius: 6px;
+
+  stroke-width: 2.2;
+}
+
+
+.pel-trainer-stats b {
+  display: block;
+
+  color: var(--pel-blue-dark);
+
+  font-size: 10px;
+
+  line-height: 1.05;
+
+  font-weight: 800;
+}
+
+
+.pel-trainer-stats small {
+  display: block;
+
+  margin-top: 2px;
+
+  color: #56616d;
+
+  font-size: 6.5px;
+
+  line-height: 1.1;
+
+  font-weight: 500;
+
+  white-space: nowrap;
+}
+
+
+/* =========================================================
+   KNOW MORE BUTTON
+   ========================================================= */
+
+.pel-trainer__copy .pel-btn {
+  min-height: 34px;
+
+  padding:
+    0
+    16px;
+
+  font-size: 9px;
+
+  border-radius: 6px;
+}
+
+
+/* =========================================================
+   QUOTE CARD
+   ========================================================= */
+
+.pel-quote {
+  position: relative;
+
+  min-height: 160px;
+
+  padding:
+    13px
+    14px
+    12px;
+
+  border:
+    1px solid
+    #e7ebf0;
+
+  border-radius: 10px;
+
+  background: #fff;
+
+  box-shadow:
+    0
+    4px
+    15px
+    rgba(25, 57, 84, 0.045);
+
+  align-self: center;
+}
+
+
+/* =========================================================
+   QUOTE MARK
+   ========================================================= */
+
+.pel-quote > span {
+  display: block;
+
+  color: var(--pel-orange);
+
+  font-family: Georgia, serif;
+
+  font-size: 38px;
+
+  font-weight: 700;
+
+  line-height: 0.6;
+
+  margin-bottom: 10px;
+}
+
+
+/* =========================================================
+   QUOTE TEXT
+   ========================================================= */
+
+.pel-quote p {
+  margin:
+    0
+    0
+    9px;
+
+  color: #283544;
+
+  font-size: 9px;
+
+  line-height: 1.5;
+}
+
+
+/* =========================================================
+   TRAINER SIGNATURE
+   ========================================================= */
+
+.pel-quote i {
+  display: block;
+
+  text-align: right;
+
+  color: #26333e;
+
+  font-family:
+    "Segoe Print",
+    "Comic Sans MS",
+    cursive;
+
+  font-size: 8px;
+
+  font-style: italic;
+}
+
+.pel-videos { padding-top:6px; }
+.pel-section-head--video { margin-bottom:7px; }
+.pel-section-head--video h2 { display:flex; align-items:baseline; gap:5px; }
+.pel-section-head--video h2 small { color:#66717d; font-size:7.5px; font-weight:400; letter-spacing:0; }
+.pel-video-grid { display:grid; grid-template-columns:1.9fr 1fr 1fr 1fr; gap:13px; }
+.pel-video { position:relative; min-width:0; }
+.pel-video img { width:100%; height:92px; border-radius:6px; object-fit:cover; }
+.pel-video--large img { height:103px; }
+.pel-video-overlay { position:absolute; inset:0; display:flex; align-items:center; justify-content:center; pointer-events:none; }
+.pel-video-overlay strong { position:absolute; left:13px; top:15px; color:#fff; width:120px; font-size:14px; line-height:1.15; }
+.pel-video-play { width:28px; height:28px; border-radius:50%; background:#fff; color:#0b4c7f; display:grid; place-items:center; box-shadow:0 2px 8px rgba(0,0,0,.22); }
+.pel-video-overlay small { position:absolute; right:5px; bottom:5px; background:rgba(0,0,0,.75); color:#fff; font-size:6px; padding:2px 3px; border-radius:2px; }
+.pel-video > b { display:block; margin-top:4px; font-size:9px; color:#22303d; }
+
+.pel-stories { padding-top:7px; }
+.pel-section-head--stack { margin-bottom:6px; }
+.pel-section-head--stack p { margin:4px 0 0; font-size:8px; color:#64707d; }
+.pel-testimonials { display:grid; grid-template-columns:repeat(3,1fr); gap:20px; }
+.pel-testimonial { min-height:87px; border:1px solid #e7ebef; border-radius:7px; box-shadow:0 2px 8px rgba(15,46,71,.035); padding:9px 12px; display:grid; grid-template-columns:35px 1fr; gap:8px; position:relative; }
+.pel-testimonial > img { width:35px; height:35px; object-fit:cover; border-radius:50%; }
+.pel-testimonial h3 { font-size:8px; margin:0; }
+.pel-testimonial span { display:block; font-size:6.5px; color:#68727d; margin-top:2px; }
+.pel-stars { color:var(--pel-orange); font-size:8px; letter-spacing:1px; margin-top:3px; }
+.pel-testimonial p { margin:4px 0 0; font-size:7px; line-height:1.35; color:#465260; }
+.pel-quote-mark { position:absolute; top:5px; right:9px; color:var(--pel-orange); font-size:30px; font-family:Georgia,serif; }
+
+.pel-why { padding-top:9px; }
+.pel-why-grid { display:grid; grid-template-columns:repeat(6,1fr); gap:8px; }
+.pel-why-grid article { min-height:60px; border:1px solid #e9edf1; border-radius:7px; display:flex; align-items:center; gap:7px; padding:8px; }
+.pel-why-grid article > span { width:29px; height:29px; border-radius:50%; border:1.5px solid var(--pel-orange); color:var(--pel-orange); display:grid; place-items:center; flex:none; }
+.pel-why-grid b { display:block; font-size:7px; color:#243241; line-height:1.2; }
+.pel-why-grid small { display:block; font-size:5.8px; color:#68727d; margin-top:3px; line-height:1.2; }
+
+.pel-final-cta { padding:17px 0 10px; }
+.pel-final-cta .pel-container { min-height:68px; border-radius:9px; background:linear-gradient(100deg,#fff7f1,#eef8ff); display:grid; grid-template-columns:50px 1fr auto 72px; align-items:center; gap:10px; padding:0 25px; }
+.pel-final-rocket { color:var(--pel-orange); transform:rotate(-12deg); }
+.pel-final-cta h2 { margin:0 0 3px; color:#07538d; font-size:17px; }
+.pel-final-cta p { margin:0; font-size:7.5px; color:#5f6a76; }
+.pel-final-actions { display:flex; gap:10px; }
+.pel-final-actions .pel-btn { min-height:30px; }
+.pel-final-note { font-size:8px; font-style:italic; font-weight:700; color:#173f63; line-height:1.15; transform:rotate(7deg); }
+.pel-final-note span { color:var(--pel-orange); }
+
+.pel-footer { border-top:1px solid #eef1f3; padding-top:13px; }
+.pel-footer__grid { display:grid; grid-template-columns:1.55fr .8fr .9fr 1.25fr 1fr; gap:25px; padding-bottom:13px; }
+.pel-footer-brand img { width:115px; height:auto; margin-bottom:7px; }
+.pel-footer p { margin:0; font-size:7px; color:#68727d; line-height:1.5; }
+.pel-footer h4 { margin:2px 0 8px; font-size:8px; color:#0d3152; }
+.pel-footer a, .pel-footer span { display:flex; align-items:center; gap:5px; font-size:7px; color:#53606e; margin-bottom:6px; }
+.pel-socials { display:flex; gap:7px; }
+.pel-socials a { width:23px; height:23px; margin:0; border-radius:50%; display:grid; place-items:center; color:#fff; background:#1877f2; }
+.pel-socials a:nth-child(2) { background:#e4405f; }
+.pel-socials a:nth-child(3) { background:#ff0000; }
+.pel-socials a:nth-child(4) { background:#0a66c2; }
+.pel-footer-bottom { min-height:28px; border-top:1px solid #edf0f3; display:flex; align-items:center; justify-content:space-between; font-size:6.5px; color:#68727d; }
+.pel-footer-bottom div { display:flex; gap:7px; }
+.pel-footer-bottom i { font-style:normal; color:#c3c8cd; }
+
+@media (max-width: 1050px) {
+  :root { --pel-container: 1280px; }
+  .pel-nav { gap:16px; }
+  .pel-header-actions .pel-login, .pel-enroll { padding-left:9px; padding-right:9px; }
+}
+@media (max-width: 850px) {
+  .pel-container { width:min(100% - 32px, 700px); }
+  .pel-nav, .pel-header-actions { display:none; }
+  .pel-mobile-menu { display:block; margin-left:auto; color:var(--pel-blue); }
+  .pel-header { height:58px; }
+  .pel-hero { min-height:580px; }
+  .pel-hero__grid { min-height:580px; grid-template-columns:1fr; padding-top:35px; }
+  .pel-hero__copy { padding-left:0; text-align:center; }
+  .pel-hero__copy > p { margin-left:auto; margin-right:auto; }
+  .pel-benefits, .pel-hero-actions { justify-content:center; }
+  .pel-hero__visual { height:275px; justify-content:center; }
+  .pel-hero__visual img { width:430px; }
+  .pel-stats { height:auto; grid-template-columns:1fr 1fr; }
+  .pel-stat { min-height:68px; }
+  .pel-course-grid { grid-template-columns:1fr 1fr; }
+  .pel-trainer__grid { grid-template-columns:1fr; }
+  .pel-trainer__image { max-width:430px; margin:auto; }
+  .pel-quote { max-width:430px; margin:auto; }
+  .pel-video-grid { grid-template-columns:1fr 1fr; }
+  .pel-why-grid { grid-template-columns:repeat(2,1fr); }
+  .pel-final-cta .pel-container { grid-template-columns:42px 1fr; padding:16px; }
+  .pel-final-actions { grid-column:2; }
+  .pel-final-note { display:none; }
+  .pel-footer__grid { grid-template-columns:1fr 1fr; }
+}
+@media (max-width: 560px) {
+  .pel-container { width:calc(100% - 24px); }
+  .pel-brand { min-width:0; }
+  .pel-brand__copy b { font-size:15px; }
+  .pel-hero h1 { font-size:33px; }
+  .pel-benefits span { width:45%; justify-content:center; }
+  .pel-hero__visual img { width:100%; height:auto; }
+  .pel-stats { grid-template-columns:1fr; }
+  .pel-stat { border-right:0; border-bottom:1px solid #eef1f5; }
+  .pel-course-grid, .pel-testimonials, .pel-video-grid, .pel-why-grid { grid-template-columns:1fr; }
+  .pel-course-image { height:150px; }
+  .pel-trainer__image { height:230px; }
+  .pel-final-cta .pel-container { grid-template-columns:1fr; }
+  .pel-final-actions { grid-column:auto; flex-wrap:wrap; }
+  .pel-footer__grid { grid-template-columns:1fr 1fr; gap:18px; }
+  .pel-footer-brand { grid-column:1/-1; }
+  .pel-footer-bottom { flex-direction:column; justify-content:center; gap:5px; padding:8px 0; }
+}
+
+/* Large desktop presentation */
+@media (min-width: 1100px) {
+  .pel-container { width: min(1280px, calc(100% - 96px)); }
+  .pel-header__inner { gap: 30px; }
+  .pel-brand { min-width: 255px; }
+  .pel-brand__copy strong { font-size: 15px; }
+  .pel-brand__copy b { font-size: 20px; }
+  .pel-brand__copy small { font-size: 9px; }
+  .pel-nav { gap: 30px; }
+  .pel-nav a { font-size: 11px; }
+  .pel-login, .pel-enroll { font-size: 10px; padding: 11px 15px; }
+
+  .pel-hero h1 { font-size: 50px; letter-spacing: -2.2px; }
+  .pel-hero__copy > p { font-size: 14px; max-width: 535px; }
+  .pel-benefits span { font-size: 10px; }
+  .pel-btn { min-height: 42px; padding: 0 20px; font-size: 11px; }
+
+  .pel-stat { padding: 0 28px; gap: 14px; }
+  .pel-stat strong { font-size: 25px; }
+  .pel-stat b { font-size: 12px; }
+  .pel-stat small { font-size: 9px; }
+
+  .pel-section { padding-top: 24px; }
+  .pel-section-head { margin-bottom: 14px; }
+  .pel-section-head h2 { font-size: 30px; }
+  .pel-section-head a { font-size: 11px; }
+
+  .pel-course-grid { gap: 20px; }
+  .pel-course-body { padding: 12px 14px 14px; }
+  .pel-course-body h3 { font-size: 16px; }
+  .pel-course-body p { font-size: 10px; }
+  .pel-course-meta { font-size: 9px; }
+  .pel-course-meta strong { font-size: 14px; }
+  .pel-course-btn { font-size: 10px; }
+
+  .pel-trainer__grid { grid-template-columns: 410px 1fr 215px; gap: 30px; }
+  .pel-trainer__copy h2 { font-size: 34px; }
+  .pel-trainer__copy > p { font-size: 11px; max-width: 510px; }
+  .pel-trainer-stats b { font-size: 11px; }
+  .pel-trainer-stats small { font-size: 8px; }
+
+  .pel-testimonial { padding: 12px 15px; min-height: 110px; }
+  .pel-testimonial h3 { font-size: 10px; }
+  .pel-testimonial span { font-size: 8px; }
+  .pel-testimonial p { font-size: 9px; }
+
+  .pel-why-grid { gap: 12px; }
+  .pel-why-grid article { min-height: 76px; padding: 11px; }
+  .pel-why-grid b { font-size: 9px; }
+  .pel-why-grid small { font-size: 7px; }
+
+  .pel-final-cta .pel-container { min-height: 88px; }
+  .pel-final-cta h2 { font-size: 22px; }
+  .pel-final-cta p { font-size: 9px; }
+
+  .pel-footer { padding-top: 20px; }
+  .pel-footer h4 { font-size: 10px; }
+  .pel-footer a, .pel-footer span { font-size: 9px; }
+  .pel-footer p { font-size: 9px; }
+}
+/* Super-admin editable section layout */
+.editable-landing { --editable-brand: #1769ff; color: #172033; background: #f8faff; min-height: 100vh; }
+.editable-landing__header { position: sticky; top: 0; z-index: 20; display: flex; align-items: center; justify-content: space-between; gap: 24px; padding: 14px clamp(18px, 5vw, 72px); background: rgba(255,255,255,.96); border-bottom: 1px solid #e5eaf2; }
+.editable-landing__header a { display: inline-flex; align-items: center; gap: 10px; color: inherit; text-decoration: none; }
+.editable-landing__header img { width: 42px; height: 42px; object-fit: contain; }
+.editable-landing__header nav { display: flex; flex-wrap: wrap; gap: 18px; }
+.editable-landing__header nav a { color: #526075; font-size: 14px; }
+.editable-landing__header > a:last-child { color: var(--editable-brand); font-weight: 700; }
+.editable-landing__section { padding: clamp(52px, 8vw, 108px) clamp(18px, 5vw, 72px); background: #fff; }
+.editable-landing__section:nth-child(even) { background: #f4f7fc; }
+.editable-landing__inner { width: min(1180px, 100%); margin: auto; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); align-items: center; gap: 36px; }
+.editable-landing__section:not(.editable-landing__section--hero) .editable-landing__inner { grid-template-columns: 1fr; }
+.editable-landing__copy > span { color: var(--editable-brand); font-size: 13px; font-weight: 800; letter-spacing: .12em; text-transform: uppercase; }
+.editable-landing__copy h1 { margin: 10px 0 14px; font-size: clamp(34px, 5vw, 64px); line-height: 1.08; }
+.editable-landing__copy p, .editable-landing__items p { color: #58667a; line-height: 1.7; }
+.editable-landing__image, .editable-landing__video { width: 100%; max-height: 520px; object-fit: cover; border-radius: 22px; }
+.editable-landing__cta { display: inline-flex; margin-top: 12px; padding: 13px 20px; border-radius: 12px; color: #fff; background: var(--editable-brand); font-weight: 700; text-decoration: none; }
+.editable-landing__items { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 18px; }
+.editable-landing__items article { padding: 22px; border: 1px solid #e4e9f1; border-radius: 18px; background: #fff; box-shadow: 0 10px 35px rgba(28,45,78,.06); }
+.editable-landing__items img, .editable-landing__items video { width: 100%; aspect-ratio: 16 / 10; object-fit: cover; border-radius: 12px; }
+.editable-landing__items h2 { margin: 14px 0 7px; font-size: 20px; }
+.editable-landing__footer { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 16px; padding: 28px clamp(18px, 5vw, 72px); color: #fff; background: #172033; }
+.editable-landing__footer a { color: #fff; }
+@media (max-width: 760px) { .editable-landing__header { align-items: flex-start; flex-wrap: wrap; } .editable-landing__header nav { order: 3; width: 100%; } .editable-landing__inner { grid-template-columns: 1fr; } }
