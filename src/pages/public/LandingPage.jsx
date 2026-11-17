@@ -25,8 +25,7 @@ import {
 } from "lucide-react";
 
 import { Link } from "react-router-dom";
-import { useEffect, useState } from "react";
-import api from "../../services/api";
+import useBranding from "../../context/BrandingContext";
 import "./LandingPage.css";
 
 /* =========================================================
@@ -180,8 +179,7 @@ function Stat({ icon: Icon, value, label, sub }) {
    ========================================================= */
 
 function LandingPage() {
-  const [cms, setCms] = useState({});
-  useEffect(() => { api.get("/api/landing").then((result) => setCms(result?.content || {})).catch(() => {}); }, []);
+  const { content: cms } = useBranding();
   const visibleCourses = cms.courses?.length ? cms.courses : courses;
   const visibleVideos = cms.videos?.length ? cms.videos.map((item) => [item.title, item.duration, item.image]) : videos;
   const visibleTestimonials = cms.testimonials?.length ? cms.testimonials : testimonials;
@@ -197,10 +195,10 @@ function LandingPage() {
         <div className="pel-container pel-header__inner">
 
           <Link className="pel-brand" to="/">
-            <span className="pel-brand__mark">
+            {cms.logo?.url ? <img className="pel-brand__custom-logo" src={cms.logo.url} alt={cms.organization || "Brand"} /> : <span className="pel-brand__mark">
               <span className="pel-brand__dot" />
               <span className="pel-brand__arc" />
-            </span>
+            </span>}
 
             <span className="pel-brand__copy">
               <strong>{cms.brandFirst || "Prime"}</strong>
@@ -1198,9 +1196,9 @@ function LandingPage() {
 
 function EditableLanding({ cms }) {
   const sections = Array.isArray(cms.sections) ? cms.sections : [];
-  return <div className="editable-landing" style={{ "--editable-brand": cms.primaryColor || "#1769ff" }}>
-    <header className="editable-landing__header"><a href="#top"><img src={cms.logo?.url || logoReference} alt={cms.organization || "Brand"} /><b>{cms.organization || "Prime Easy Learn"}</b></a><nav>{sections.map((section, index) => <a key={`${section.title || section.type}-${index}`} href={`#editable-section-${index}`}>{section.navLabel || section.title || section.type}</a>)}</nav><Link to="/login/student">Learner login</Link></header>
-    <main id="top">{sections.map((section, index) => <section className={`editable-landing__section editable-landing__section--${section.type || "content"}`} id={`editable-section-${index}`} key={`${section.type}-${index}`}>
+  return <div className="editable-landing" style={{ "--editable-brand": cms.primaryColor || "#1769ff", "--editable-accent": cms.accentColor || "#f59a23", "--editable-bg": cms.backgroundColor || "#f8faff", "--editable-text": cms.textColor || "#172033" }}>
+    <header className="editable-landing__header"><a href="#top"><img src={cms.logo?.url || logoReference} alt={cms.organization || "Brand"} /><b>{cms.organization || "Prime Easy Learn"}</b></a><nav>{sections.map((section, index) => <a key={`${section.title || section.type}-${index}`} href={`#editable-section-${index}`}>{section.navLabel || section.title || section.type}</a>)}</nav><Link to="/login/student">{cms.headerLoginText || "Learner login"}</Link></header>
+    <main id="top">{sections.map((section, index) => <section className={`editable-landing__section editable-landing__section--${section.type || "content"}`} style={{ backgroundColor: section.backgroundColor || undefined, color: section.textColor || undefined }} id={`editable-section-${index}`} key={`${section.type}-${index}`}>
       <div className="editable-landing__inner">
         {section.image && <img className="editable-landing__image" src={section.image} alt={section.imageAlt || ""} />}
         <div className="editable-landing__copy">{section.eyebrow && <span>{section.eyebrow}</span>}{section.title && <h1>{section.title}</h1>}{section.description && <p>{section.description}</p>}{section.ctaText && <a className="editable-landing__cta" href={section.ctaHref || "/login/student"}>{section.ctaText}</a>}</div>

@@ -14,10 +14,12 @@ import {
 import { useState } from "react";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import useAuth from "../../context/useAuth";
+import useBranding from "../../context/BrandingContext";
 import "./LoginPage.css";
 import "./PasswordReset.css";
 
 function LoginPage() {
+  const { content: branding } = useBranding();
   const { portal = "student" } = useParams();
 
 const isTrainer = portal === "trainer";
@@ -109,12 +111,11 @@ const label = isAdmin ? (portal === "superadmin" ? "Super Admin" : "Administrato
       <section className="pel-auth__intro">
         <div className="pel-auth__intro-inner">
           <Link className="pel-auth-brand" to="/">
-            <span className="pel-auth-brand__mark">
+            {branding.logo?.url ? <img className="pel-auth-brand__custom-logo" src={branding.logo.url} alt={branding.organization || "Brand"} /> : <span className="pel-auth-brand__mark">
               <span />
-            </span>
+            </span>}
             <span className="pel-auth-brand__text">
-              <strong>Prime</strong>
-              <b>Easy Learn</b>
+              <strong>{branding.organization || "Prime Easy Learn"}</strong>
               <small>Training Institute</small>
             </span>
           </Link>
@@ -277,7 +278,7 @@ const label = isAdmin ? (portal === "superadmin" ? "Super Admin" : "Administrato
         </div>
 
         <p className="pel-auth__copyright">
-          © 2026 Prime Easy Learn Training Institute
+          © 2026 {branding.organization || "Prime Easy Learn Training Institute"}
         </p>
       </section>
     </main>

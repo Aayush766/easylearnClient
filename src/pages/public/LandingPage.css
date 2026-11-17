@@ -29,6 +29,7 @@ img { display: block; max-width: 100%; }
 .pel-header__inner { height: 100%; display:flex; align-items:center; gap:22px; }
 .pel-brand { display:flex; align-items:center; gap:7px; min-width:220px; }
 .pel-brand__mark { width:40px; height:47px; position:relative; display:block; }
+.pel-brand__custom-logo { width:44px; height:44px; flex:0 0 44px; object-fit:contain; border-radius:9px; }
 .pel-brand__dot { position:absolute; width:13px; height:13px; border:4px solid var(--pel-orange); border-radius:50%; left:10px; top:3px; background:#fff; z-index:2; }
 .pel-brand__arc { position:absolute; width:30px; height:35px; border-left:5px solid var(--pel-blue); border-bottom:5px solid var(--pel-blue); border-radius:0 0 0 28px; transform:rotate(-10deg); left:3px; top:10px; }
 .pel-brand__copy { display:grid; line-height:1; }
@@ -1607,3 +1608,4 @@ img { display: block; max-width: 100%; }
 .editable-landing__footer { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 16px; padding: 28px clamp(18px, 5vw, 72px); color: #fff; background: #172033; }
 .editable-landing__footer a { color: #fff; }
 @media (max-width: 760px) { .editable-landing__header { align-items: flex-start; flex-wrap: wrap; } .editable-landing__header nav { order: 3; width: 100%; } .editable-landing__inner { grid-template-columns: 1fr; } }
+.editable-landing{color:var(--editable-text,#172033);background:var(--editable-bg,#f8faff)}.editable-landing__section{color:var(--editable-text,#172033);background:var(--editable-bg,#fff)}.editable-landing__section:nth-child(even){background:color-mix(in srgb,var(--editable-bg,#f8faff) 70%,white)}.editable-landing__section--hero{background:linear-gradient(115deg,color-mix(in srgb,var(--editable-brand,#1769ff) 10%,white),var(--editable-bg,#f8faff))}.editable-landing__copy>span{color:var(--editable-brand,#1769ff)}.editable-landing__cta{background:var(--editable-brand,#1769ff)}.editable-landing__header nav a:hover,.editable-landing__header>a:last-child{color:var(--editable-brand,#1769ff)}.editable-landing__footer{background:var(--editable-text,#172033)}.editable-landing__items article{color:var(--editable-text,#172033)}.editable-landing__items article>strong{color:var(--editable-accent,#f59a23)}

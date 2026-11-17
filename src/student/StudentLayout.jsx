@@ -4,6 +4,7 @@ import {
   Bell,
   BookOpen,
   Bookmark,
+  ClipboardCheck,
   CircleHelp,
   FileBadge2,
   FileText,
@@ -23,6 +24,7 @@ import "./StudentLayout.css";
 import logo from "../public/assets/student/logo.jpeg";
 import studentAvatar from "../assets/student/avatar.png";
 import useAuth from "../context/useAuth";
+import useBranding from "../context/BrandingContext";
 import "./StudentSearch.css";
 import "./StudentNotifications.css";
 
@@ -36,6 +38,7 @@ const SEARCH_DESTINATIONS = [
   { label: "Assessments", detail: "Tests and quizzes", keywords: "quiz exam test assessment", to: "/student/assessments" },
   { label: "Certificates", detail: "Credentials and awards", keywords: "certificate badge award", to: "/student/certificates" },
   { label: "My Progress", detail: "Learning analytics and badges", keywords: "progress analytics graph score", to: "/student/progress" },
+  { label: "My Attendance", detail: "Attendance records by course and trainer", keywords: "attendance present absent class", to: "/student/attendance" },
   { label: "Messages", detail: "Your course conversations", keywords: "message chat instructor", to: "/student/messages" },
   { label: "Help & Support", detail: "FAQs and learner support", keywords: "help support faq", to: "/student/support" },
 ];
@@ -46,6 +49,7 @@ const STUDENT_NAVIGATION = [
   { label: "Assessments", path: "/student/assessments", icon: FileText },
   { label: "Certificates", path: "/student/certificates", icon: FileBadge2 },
   { label: "My Progress", path: "/student/progress", icon: LayoutDashboard },
+  { label: "My Attendance", path: "/student/attendance", icon: ClipboardCheck },
   { label: "Bookmarks", path: "/student/bookmarks", icon: Bookmark },
   { label: "Messages", path: "/student/messages", icon: MessageSquare },
   { label: "Help & Support", path: "/student/support", icon: CircleHelp },
@@ -77,10 +81,11 @@ function notificationTime(value) {
 }
 
 function StudentBrand() {
+  const { content: branding } = useBranding();
   return (
     <Link className="student-layout__brand" to="/student">
       <div className="student-layout__logo-wrapper">
-        <img src={logo} alt="Prime Easy Learn Training Institute" />
+        <img src={branding.logo?.url || logo} alt={branding.organization || "Prime Easy Learn Training Institute"} />
       </div>
     </Link>
   );

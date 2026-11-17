@@ -97,6 +97,7 @@
   position: relative;
   display: block;
 }
+.pel-auth-brand__custom-logo { width: 48px; height: 48px; flex: 0 0 48px; border-radius: 10px; object-fit: contain; }
 .pel-auth-brand__mark:before {
   content: "";
   position: absolute;

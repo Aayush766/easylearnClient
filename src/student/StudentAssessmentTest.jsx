@@ -20,6 +20,7 @@ import {
 import "./StudentAssessmentTest.css";
 import "./StudentAssessmentStart.css";
 import api from "../services/api";
+import useBranding from "../context/BrandingContext";
 
 const QUESTIONS = [
   {
@@ -120,11 +121,12 @@ function formatTime(seconds) {
 }
 
 function AssessmentLogo() {
+  const { content: branding } = useBranding();
   return (
     <div className="test-logo">
       <img
-        src="/assets/student/logo.jpeg"
-        alt="Prime Easy Learn Training Institute"
+        src={branding.logo?.url || "/assets/student/logo.jpeg"}
+        alt={branding.organization || "Prime Easy Learn Training Institute"}
       />
     </div>
   );

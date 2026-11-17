@@ -13,18 +13,21 @@ import StudentAssessmentTest from "./student/StudentAssessmentTest";
 import StudentAssessmentResult from "./student/StudentAssessmentResult";
 import StudentCertificates from "./student/StudentCertificates";
 import StudentProgress from "./student/StudentProgress";
+import StudentAttendance from "./student/StudentAttendance";
 import StudentMessages from "./student/StudentMessages";
 import StudentSupport from "./student/StudentSupport";
 import StudentProfile from "./student/StudentProfile";
 import TrainerDashboard from "./trainer/TrainerDashboard";
 import TrainerActivityPage from "./trainer/TrainerActivityPage";
+import TrainerAttendance from "./trainer/TrainerAttendance";
 import TrainerMessages from "./trainer/TrainerMessages";
 import { Assessments, Courses, Profile, Results, Support, UploadPage } from "./trainer/TrainerPages";
 import CertificateTemplates from "./admin/CertificateTemplates";
+import { BrandingProvider } from "./context/BrandingContext";
 
 function App() {
   return (
-    <AuthProvider><BrowserRouter>
+    <AuthProvider><BrowserRouter><BrandingProvider>
       <Routes>
 
         {/* Public */}
@@ -66,6 +69,7 @@ function App() {
   path="/student/progress"
   element={<RequireAuth roles={["LEARNER"]}><StudentProgress /></RequireAuth>}
 />
+<Route path="/student/attendance" element={<RequireAuth roles={["LEARNER"]}><StudentAttendance /></RequireAuth>} />
 
 <Route
   path="/student/messages"
@@ -87,6 +91,7 @@ function App() {
         {/* ================= TRAINER ================= */}
         <Route path="/trainer" element={<RequireAuth roles={["TRAINER"]}><TrainerDashboard /></RequireAuth>} />
         <Route path="/trainer/activity" element={<RequireAuth roles={["TRAINER"]}><TrainerActivityPage /></RequireAuth>} />
+        <Route path="/trainer/attendance" element={<RequireAuth roles={["TRAINER"]}><TrainerAttendance /></RequireAuth>} />
         <Route path="/trainer/courses" element={<RequireAuth roles={["TRAINER"]}><Courses /></RequireAuth>} />
         <Route path="/trainer/content" element={<RequireAuth roles={["TRAINER"]}><Courses /></RequireAuth>} />
         <Route path="/trainer/upload" element={<RequireAuth roles={["TRAINER"]}><UploadPage /></RequireAuth>} />
@@ -106,7 +111,7 @@ function App() {
         <Route path="*" element={<NotFoundPage />} />
 
       </Routes>
-    </BrowserRouter></AuthProvider>
+    </BrandingProvider></BrowserRouter></AuthProvider>
   );
 }
 

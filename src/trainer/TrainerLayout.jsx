@@ -6,6 +6,7 @@ import {
   ChartNoAxesColumnIncreasing,
   CircleHelp,
   ClipboardList,
+  ClipboardCheck,
   CloudUpload,
   Clock3,
   LayoutDashboard,
@@ -26,10 +27,12 @@ import "./TrainerNotifications.css";
 import logo from "../public/assets/student/logo.jpeg";
 import trainerAvatar from "../assets/student/avatar.png";
 import useAuth from "../context/useAuth";
+import useBranding from "../context/BrandingContext";
 
 const navigation = [
   ["Dashboard", "/trainer", LayoutDashboard, true],
   ["Recent Activity", "/trainer/activity", Clock3],
+  ["Attendance", "/trainer/attendance", ClipboardCheck],
   ["My Courses", "/trainer/courses", BookOpen],
   ["Upload Content", "/trainer/upload", CloudUpload],
   ["Assessments", "/trainer/assessments", ClipboardList],
@@ -41,6 +44,7 @@ const navigation = [
 const searchItems = [
   { title: "Dashboard", hint: "Trainer overview", to: "/trainer" },
   { title: "Recent Activity", hint: "Your recent course actions", to: "/trainer/activity" },
+  { title: "Attendance", hint: "Mark attendance for your enrolled learners", to: "/trainer/attendance" },
   { title: "My Courses", hint: "Assigned courses and display order", to: "/trainer/courses" },
   { title: "Upload Content", hint: "Add video, PDF, or course material", to: "/trainer/upload" },
   { title: "Assessments", hint: "Create and publish a test", to: "/trainer/assessments" },
@@ -66,6 +70,7 @@ function notificationTime(value) {
 }
 
 export default function TrainerLayout({ children }) {
+  const { content: branding } = useBranding();
   const { logout, user } = useAuth();
   const [open, setOpen] = useState(false);
   const [search, setSearch] = useState("");
@@ -93,7 +98,7 @@ export default function TrainerLayout({ children }) {
       {open && <button className="trainer-layout__backdrop" onClick={() => setOpen(false)} aria-label="Close navigation" />}
       <aside className={`trainer-layout__sidebar ${open ? "is-open" : ""}`}>
         <Link className="trainer-layout__brand" to="/trainer" aria-label="Prime Easy Learn trainer dashboard">
-          <img src={logo} alt="Prime Easy Learn Training Institute" />
+          <img src={branding.logo?.url || logo} alt={branding.organization || "Prime Easy Learn Training Institute"} />
           <span>TRAINER PORTAL</span>
         </Link>
         <div className="trainer-layout__section-label">WORKSPACE</div>
