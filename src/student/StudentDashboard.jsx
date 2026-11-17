@@ -8,6 +8,7 @@ import fullstackImage from "../assets/fullstack.png";
 import {
   Bookmark,
   BarChart3,
+  ClipboardCheck,
   BookOpen,
   CalendarDays,
   Check,
@@ -259,6 +260,7 @@ function QuickLinks() {
         <Link to="/student/assessments"><span><FileText /></span>Assessments</Link>
         <Link to="/student/courses"><span><BookOpen /></span>My Courses</Link>
         <Link to="/student/certificates"><span><FileBadge /></span>Certificates</Link>
+        <Link to="/student/attendance"><span><ClipboardCheck /></span>My Attendance</Link>
         <Link to="/student/support"><span><CircleHelp /></span>Support</Link>
       </div>
     </section>
@@ -270,6 +272,7 @@ export default function StudentDashboard() {
   const [enrolledCourses, setEnrolledCourses] = useState([]);
   const [progressData, setProgressData] = useState(null);
   const [attempts, setAttempts] = useState([]);
+  const [attendance, setAttendance] = useState(null);
   const [courseFilter, setCourseFilter] = useState("all");
   const activeCourses = enrolledCourses.filter((course) => !course.isFreePreview);
   const completedLessons = activeCourses.reduce((total, course) => total + course.completedLessons, 0);
@@ -287,6 +290,7 @@ export default function StudentDashboard() {
         return { id: course._id, title: course.title || "Course", subtitle: course.description || "", progress: row.progressPercent || 0, completedLessons: row.completedContent || 0, totalContent: row.totalContent || 0, isFreePreview: Boolean(row.isFreePreview), lessons: `${row.completedContent || 0} / ${row.totalContent || 0} Lessons`, valid: row.enrollment?.expiryDate ? `Valid until ${new Date(row.enrollment.expiryDate).toLocaleDateString()}` : "", image: course.thumbnail?.url || fullstackImage, color: "#2563eb", tag: row.enrollment?.status || "Enrolled" };
       }));
     }).catch(() => { if (active) setDashboard(null); });
+    api.get("/api/attendance", { params: { limit: 1 } }).then((result) => { if (active) setAttendance(result); }).catch(() => {});
     return () => { active = false; };
   }, []);
   const visibleCourses = enrolledCourses.filter((course) => courseFilter === "all" || (courseFilter === "progress" ? course.progress < 100 : course.progress >= 100));
@@ -300,6 +304,7 @@ export default function StudentDashboard() {
           <Stat icon={BarChart3} value={enrolledCourses.reduce((total, course) => total + course.completedLessons, 0)} title="Lessons Done" subtitle="Across enrolled courses" tone="emerald" />
           <Stat icon={Clock3} value={Math.floor((progressData?.summary?.trackedLearningSeconds || 0) / 3600)} title="Hours Learned" subtitle="Tracked course learning time" tone="purple" />
           <Stat icon={Trophy} value={dashboard?.summary?.certificates ?? "—"} title="Certificates" subtitle="Verified badges" tone="amber" />
+          <Stat icon={ClipboardCheck} value={attendance?.total ?? "?"} title="Attendance sessions" subtitle={(attendance?.summary?.PRESENT || 0) + " present / " + (attendance?.summary?.ABSENT || 0) + " absent"} tone="blue" />
         </section>
 
         <section className="student-content">

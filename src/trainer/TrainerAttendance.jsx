@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { useSearchParams } from "react-router-dom";
 import { CalendarDays, CheckCheck, ClipboardCheck, LoaderCircle, Save, Users } from "lucide-react";
 import api from "../services/api";
 import TrainerLayout from "./TrainerLayout";
@@ -8,8 +9,9 @@ const statuses = ["PRESENT", "ABSENT", "LATE", "EXCUSED"];
 const today = () => { const date = new Date(); date.setMinutes(date.getMinutes() - date.getTimezoneOffset()); return date.toISOString().slice(0, 10); };
 
 export default function TrainerAttendance() {
-  const [courses, setCourses] = useState([]); const [courseId, setCourseId] = useState(""); const [date, setDate] = useState(today()); const [sessionName, setSessionName] = useState(""); const [sessionKey, setSessionKey] = useState(""); const [roster, setRoster] = useState([]); const [marks, setMarks] = useState({}); const [loading, setLoading] = useState(true); const [saving, setSaving] = useState(false); const [error, setError] = useState(""); const [notice, setNotice] = useState("");
-  useEffect(() => { let active = true; api.get("/api/courses", { params: { limit: 100 } }).then((result) => { if (!active) return; const next = result.items || []; setCourses(next); if (next.length) setCourseId(String(next[0]._id)); }).catch((reason) => { if (active) setError(reason.message || "Could not load assigned courses."); }).finally(() => { if (active) setLoading(false); }); return () => { active = false; }; }, []);
+  const [searchParams] = useSearchParams();
+  const [courses, setCourses] = useState([]); const [courseId, setCourseId] = useState(() => searchParams.get("courseId") || ""); const [date, setDate] = useState(today()); const [sessionName, setSessionName] = useState(""); const [sessionKey, setSessionKey] = useState(""); const [roster, setRoster] = useState([]); const [marks, setMarks] = useState({}); const [loading, setLoading] = useState(true); const [saving, setSaving] = useState(false); const [error, setError] = useState(""); const [notice, setNotice] = useState("");
+  useEffect(() => { let active = true; api.get("/api/courses", { params: { limit: 100 } }).then((result) => { if (!active) return; const next = result.items || []; setCourses(next); if (next.length) setCourseId((current) => current || String(next[0]._id)); }).catch((reason) => { if (active) setError(reason.message || "Could not load assigned courses."); }).finally(() => { if (active) setLoading(false); }); return () => { active = false; }; }, []);
   useEffect(() => { if (!courseId || !date) { setRoster([]); return; } let active = true; setLoading(true); setError(""); api.get("/api/attendance/roster", { params: { courseId, date, sessionName: sessionKey } }).then((result) => { if (!active) return; const rows = result.learners || []; setRoster(rows); setMarks(Object.fromEntries(rows.map(({ learner, attendance }) => [learner._id, { status: attendance?.status || "", note: attendance?.note || "" }]))); }).catch((reason) => { if (active) setError(reason.message || "Could not load the attendance roster."); }).finally(() => { if (active) setLoading(false); }); return () => { active = false; }; }, [courseId, date, sessionKey]);
   const changeMark = (id, key, value) => setMarks((current) => ({ ...current, [id]: { ...current[id], [key]: value } }));
   const setAll = (status) => setMarks((current) => Object.fromEntries(roster.map(({ learner }) => [learner._id, { ...current[learner._id], status }])));

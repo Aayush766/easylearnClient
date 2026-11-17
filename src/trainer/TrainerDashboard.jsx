@@ -52,7 +52,7 @@ export default function TrainerDashboard() {
             </Link>
           </header>
           <div className="trainer-course-list">
-            {orderedCourses.map(([, title, learners, image]) => (
+            {orderedCourses.map(([courseId, title, learners, image]) => (
               <article className="trainer-course-row" key={title}>
                 <img src={image} alt="" />
                 <div className="trainer-course-info">
@@ -94,6 +94,13 @@ export default function TrainerDashboard() {
                     </span>
                   </Link>
                 </div>
+                <Link to={"/trainer/attendance?courseId=" + courseId} className="trainer-action trainer-action--attendance">
+                  <CalendarDays />
+                  <span>
+                    <b>Take Attendance</b>
+                    <small>Mark learners for this course</small>
+                  </span>
+                </Link>
                 <ArrowRight className="trainer-row-arrow" size={20} />
               </article>
             ))}

@@ -24,8 +24,10 @@ import {
   FolderKanban,
 } from "lucide-react";
 
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
+import { useEffect, useState } from "react";
 import useBranding from "../../context/BrandingContext";
+import api from "../../services/api";
 import "./LandingPage.css";
 
 /* =========================================================
@@ -179,13 +181,46 @@ function Stat({ icon: Icon, value, label, sub }) {
    ========================================================= */
 
 function LandingPage() {
-  const { content: cms } = useBranding();
-  const visibleCourses = cms.courses?.length ? cms.courses : courses;
-  const visibleVideos = cms.videos?.length ? cms.videos.map((item) => [item.title, item.duration, item.image]) : videos;
-  const visibleTestimonials = cms.testimonials?.length ? cms.testimonials : testimonials;
+  const location = useLocation();
+  const { content: publishedCms } = useBranding();
+  const [previewCms, setPreviewCms] = useState(null);
+
+  useEffect(() => {
+    const params = new URLSearchParams(location.search);
+    if (params.get("pelPreview") !== "1" || window.parent === window) return undefined;
+    const parentOrigin = params.get("parentOrigin");
+    const previewKey = params.get("previewKey");
+    if (!parentOrigin || !previewKey) return undefined;
+
+    let targetOrigin;
+    try {
+      const parentUrl = new URL(parentOrigin);
+      if (!["http:", "https:"].includes(parentUrl.protocol)) return undefined;
+      targetOrigin = parentUrl.origin;
+    } catch {
+      return undefined;
+    }
+
+    const receivePreview = (event) => {
+      if (event.source !== window.parent || event.origin !== targetOrigin || event.data?.key !== previewKey) return;
+      if (event.data.type === "PEL_LANDING_PREVIEW_DRAFT" && event.data.content && typeof event.data.content === "object") setPreviewCms(event.data.content);
+      if (event.data.type === "PEL_LANDING_PREVIEW_DEFAULT") setPreviewCms({});
+      if (event.data.type === "PEL_LANDING_PREVIEW_PUBLISHED") {
+        api.get("/api/landing").then((result) => setPreviewCms(result?.content || {})).catch(() => setPreviewCms(null));
+      }
+    };
+    window.addEventListener("message", receivePreview);
+    window.parent.postMessage({ type: "PEL_LANDING_PREVIEW_READY", key: previewKey }, targetOrigin);
+    return () => window.removeEventListener("message", receivePreview);
+  }, [location.search]);
+
+  const cms = previewCms ?? publishedCms;
+  const visibleCourses = cms.courses?.length ? cms.courses.map((item) => ({ ...item, image: item.image?.url || item.image })) : courses;
+  const visibleVideos = cms.videos?.length ? cms.videos.map((item) => [item.title, item.duration, item.thumbnail?.url || item.thumbnail || item.image?.url || item.image || videoWeb]) : videos;
+  const visibleTestimonials = cms.testimonials?.length ? cms.testimonials.map((item) => ({ ...item, avatar: item.avatar?.url || item.avatar || item.image?.url || item.image, text: item.text || item.quote, course: item.course || item.role })) : testimonials;
   if (Array.isArray(cms.sections)) return <EditableLanding cms={cms} />;
   return (
-    <div className="pel-page">
+    <div className="pel-page" style={{ "--pel-blue": cms.primaryColor || "#0068b7", "--pel-blue-dark": cms.primaryColor || "#00539a", "--pel-orange": cms.accentColor || "#ff7a00", "--pel-orange-2": cms.accentColor || "#ff8a00", "--pel-text": cms.textColor || "#0c1420", "--pel-soft": cms.backgroundColor || "#f5faff" }}>
 
       {/* =====================================================
           HEADER
@@ -312,7 +347,7 @@ function LandingPage() {
     <div className="pel-hero__copy">
 
       <span className="pel-pill">
-        SKILLS TODAY <i>•</i> BETTER TOMORROW
+        {cms.heroEyebrow || "SKILLS TODAY ? BETTER TOMORROW"}
       </span>
 
       <h1>
@@ -323,11 +358,7 @@ function LandingPage() {
         </span>
       </h1>
 
-      <p>
-        Practical training, industry-focused learning and
-        <br className="pel-desktop-break" />
-        real opportunities — all in one place.
-      </p>
+      <p>{cms.heroDescription || "Practical training, industry-focused learning and real opportunities ? all in one place."}</p>
 
       <div className="pel-benefits">
 
@@ -355,17 +386,11 @@ function LandingPage() {
 
       <div className="pel-hero-actions">
 
-        <Link
-          className="pel-btn pel-btn--orange"
-          to="/login/student"
-        >
-          Explore Courses
-          <ArrowRight size={17} />
-        </Link>
+        <a className="pel-btn pel-btn--orange" href={cms.heroButtonUrl || "/login/student"}>{cms.heroButtonLabel || "Explore Courses"}<ArrowRight size={17} /></a>
 
         <a
           className="pel-btn pel-btn--outline"
-          href="#resources"
+          href={cms.heroSecondaryButtonUrl || "#resources"}
         >
           <span className="pel-play">
             <Play
@@ -374,7 +399,7 @@ function LandingPage() {
             />
           </span>
 
-          Watch Introduction
+          {cms.heroSecondaryButtonLabel || "Watch Introduction"}
         </a>
 
       </div>
@@ -411,7 +436,7 @@ function LandingPage() {
       {/* Main person */}
       <img
         className="pel-hero-person"
-        src={heroVisual}
+        src={cms.heroImage?.url || cms.heroImage || heroVisual}
         alt="Prime Easy Learn training"
       />
 
@@ -535,7 +560,7 @@ function LandingPage() {
             <div className="pel-section-head">
 
               <h2>
-                <span>Newly Launched</span> Courses
+                <span>{cms.coursesEyebrow || "Newly Launched"}</span> {cms.coursesTitle || "Courses"}
               </h2>
 
               <a href="#courses">
@@ -731,10 +756,10 @@ function LandingPage() {
             <div className="pel-section-head pel-section-head--video">
 
               <h2>
-                <span>Watch</span> &amp; Learn
+                {cms.videosTitle || "Watch & Learn"}
 
                 <small>
-                  Explore our videos, tutorials and success stories.
+                  {cms.videosDescription || "Explore our videos, tutorials and success stories."}
                 </small>
               </h2>
 
@@ -813,11 +838,11 @@ function LandingPage() {
               <div>
 
                 <h2>
-                  <span>What Our Students</span> Say
+                  <span>{cms.testimonialsTitle || "What Our Students Say"}</span>
                 </h2>
 
                 <p>
-                  Real stories. Real growth. Real careers.
+                  {cms.testimonialsDescription || "Real stories. Real growth. Real careers."}
                 </p>
 
               </div>
@@ -1205,7 +1230,11 @@ function EditableLanding({ cms }) {
         {section.video && <video className="editable-landing__video" src={section.video} poster={section.videoPoster || section.image} controls preload="metadata" />}
         {Array.isArray(section.items) && <div className="editable-landing__items">{section.items.map((item, itemIndex) => <article key={`${item.title || item.name}-${itemIndex}`}>{item.image && <img src={item.image} alt={item.title || ""} />}{item.video && <video src={item.video} poster={item.image} controls preload="metadata" />}{item.title && <h2>{item.title}</h2>}{item.name && !item.title && <h2>{item.name}</h2>}{item.description && <p>{item.description}</p>}{item.text && <p>{item.text}</p>}{item.meta && <small>{item.meta}</small>}{item.price && <strong>{item.price}</strong>}{item.ctaText && <a className="editable-landing__cta" href={item.ctaHref || "/login/student"}>{item.ctaText}</a>}</article>)}</div>}
       </div>
-    </section>)}</main>
+    </section>)}
+    {cms.courses?.length > 0 && <section className="editable-landing__section editable-landing__section--cards"><div className="editable-landing__inner"><div className="editable-landing__copy"><span>Courses</span><h1>{cms.coursesTitle || "Featured courses"}</h1>{cms.coursesDescription && <p>{cms.coursesDescription}</p>}</div><div className="editable-landing__items">{cms.courses.map((item, index) => <article key={"cms-course-" + index}>{item.image && <img src={item.image?.url || item.image} alt={item.title || ""} />}{item.title && <h2>{item.title}</h2>}{item.description && <p>{item.description}</p>}{item.meta && <small>{item.meta}</small>}{item.price && <strong>{item.price}</strong>}{item.ctaText && <a className="editable-landing__cta" href={item.url || item.ctaHref || "/login/student"}>{item.ctaText}</a>}</article>)}</div></div></section>}
+    {cms.videos?.length > 0 && <section className="editable-landing__section editable-landing__section--media"><div className="editable-landing__inner"><div className="editable-landing__copy"><span>Watch</span><h1>{cms.videosTitle || "Featured videos"}</h1>{cms.videosDescription && <p>{cms.videosDescription}</p>}</div><div className="editable-landing__items">{cms.videos.map((item, index) => <article key={"cms-video-" + index}>{(item.url || item.video) && <video src={item.url || item.video} poster={item.thumbnail?.url || item.thumbnail || item.image?.url || item.image} controls preload="metadata" />}{item.title && <h2>{item.title}</h2>}{item.description && <p>{item.description}</p>}</article>)}</div></div></section>}
+    {cms.testimonials?.length > 0 && <section className="editable-landing__section editable-landing__section--testimonials"><div className="editable-landing__inner"><div className="editable-landing__copy"><span>Student stories</span><h1>{cms.testimonialsTitle || "What learners say"}</h1>{cms.testimonialsDescription && <p>{cms.testimonialsDescription}</p>}</div><div className="editable-landing__items">{cms.testimonials.map((item, index) => <article key={"cms-testimonial-" + index}>{item.image && <img src={item.image?.url || item.image} alt={item.name || ""} />}{item.quote || item.text ? <p>{item.quote || item.text}</p> : null}{item.name && <h2>{item.name}</h2>}{item.role && <small>{item.role}</small>}</article>)}</div></div></section>}
+    </main>
     <footer className="editable-landing__footer">{cms.footerDescription || cms.organization || "Prime Easy Learn"}{cms.supportEmail && <a href={`mailto:${cms.supportEmail}`}>{cms.supportEmail}</a>}{cms.phone && <a href={`tel:${cms.phone}`}>{cms.phone}</a>}</footer>
   </div>;
 }
